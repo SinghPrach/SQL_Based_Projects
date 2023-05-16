@@ -272,3 +272,156 @@ Syntax:
 SELECT col_name(s) FROM table 1
 UNION
 SELECT col_name(s) FROM table 2 
+
+
+Correlated Subquery
+- Used for row-by-row processing
+- Each subquery is executed once for every row of the outer query.
+A correlated subquery is evaluated once for each row, processed by the parent statement. The parent statement can be a SELECT, UPDATE, or DELETE statement.
+We can use a correlated subquery to answer a multiple question whose answers depend on the value in each row, processed by the parent statement.
+Correlated SELECT 
+SELECT col1, col2, ...
+FROM table1 outer
+WHERE col1 operator 
+            (SELECT col1,col2
+            FROM table2 
+            WHERE expr1 = outer.expr2)
+Correlated UPDATE 
+UPDATE table1 alias1
+SET col1 = (SELECT col1,col2
+            FROM table 2 
+            WHERE expr1 = outer.expr2)
+Correlated DELETE 
+DELETE FROM table1 alias1
+WHERE col1 operator (SELECT col1,col2
+            FROM table 2 
+            WHERE expr1 = outer.expr2)
+         
+ACID Properties
+Transaction- It is a single logical unit of work that accesses and possibly modifies the content of a database. Transactions access data using read and write operations. In order to maintain consistency in a database, before and after the transaction, certain properties are followed, which are called ACID properties.
+A- Atomicity
+Transaction Manager
+The entire transaction takes place at once or doesn't happen at all
+C- Consistency
+Application Programmer
+The database must be consistent before and after the transaction
+I- Isolation
+Concurrency Control Manager
+Multiple transactions occur independently without interference
+D- Durability
+Recovery Manager
+The changes of a successful transaction occurs even if the system failure occurs
+
+The ACID properties, in totality, provide a mechanism to ensure the correctness and consistency of a database in a way such that each transaction is a group of operations that acts as a single uniy, produces consistent results, acts in isolation from other operations, and updates that it makes are durably stored.
+
+
+Functions in SQL
+1. Single Row Functions
+They work on a single row and return one output per row
+For example: length and case conversion functions are single row functions
+2. Multiple Row Functions
+They work upon group of rows and return one result for the complete set of rows.
+
+
+Wildcards
+Search for patterns made form literal texts, wildcard characters or a combination
+Use LIKE as an operator
+
+
+Views
+They are kind of virtual tables, having rows and columns.
+We can create a view by selecting fields from one or more tables present in the database.
+A view can either have all the rows of a table or specific rows based on condition.
+Syntax:-
+CREATE VIEW view_name AS
+SELECT col1, col2, ..
+FROM table_name
+WHERE condition
+Deleting View: DROP VIEW view_name
+Updating Views:
+There are certain conditions needed to be satisfied to update a view. If any of these conditions is not met, then we will not be allowed to update the view.
+1. The SELECT statement which is used to create the view should not include the GROUP BY clause or ORDER BY clause.
+2. The SELECT statement should not have the DISTINCT keyword.
+3. The View should have all NOT NULL values.
+4. The View should not be created using Nested queries or complex queries.
+5. The View should be created from a single table. In case the view is created from multiple tables, then updating the view is not possible.
+Syntaxes:-
+1. To add or remove fields from a view
+CREATE OR REPLACE VIEW view_name AS
+SELECT col1, col2, ..
+FROM table_name
+WHERE condition
+2. To insert a row in a view
+INSERT INTO view_name (col1, col2,...,colN)
+VALUES (val1,val2,val3,...,valN)
+3. To delete a row in a view
+DELETE FROM view_name
+WHERE condition
+
+WITH CHECK OPTION
+This clause is applicable to an updatable view.
+It is used to prevent the insertion of rows in the view where the condition in the WHERE clause in CREATE VIEW statement is not satisfied.
+If we have used the WITH CHECK OPTION clause in the CREATE VIEW statement and if the UPDATE or INSERT clause does not satisfy the condition, then they will return an error.
+
+Uses of a view:-
+A good database should contain views for the given reasons:-
+1. Restricting Data Access
+Views provide an additional level of table security by restricting access to a predetermined set of rows and columns of a table.
+2. Hiding Data Complexity
+A view can hide the complexity that exists in a multiple table join.
+3. Simplify commands for the user
+Views allow the user to select information from multiple tables without requiring the users to actually know how to perform a join.
+4. Store Complex queries
+5. Rename Columns
+Without affecting the original tables.
+6. Multiple View Facility
+Different views can be created on the same table for different users.
+
+
+Temporary (Temp) Tables
+They are most likely as Permanent tables.
+They are created in Temp DB and are automatically deleted as soon as the last connection is terminated.
+They help us to store and process intermediate results.
+They are very useful when we need to store temporary data.
+
+To create temporary table
+CREATE TABLE #EmpDetails (id INT, name VARCHAR(25))
+
+To insert values into temporary table
+INSERT INTO #EmpDetails VALUES (01,'Lalit'),(02,'Atharva')
+
+Kinds of Temp Tables:-
+1. Local Temp Table (#)
+    Available only for the session that has created it.
+2. Global Temp Table (##)
+    Visible to all connections and dropped when the last connection referencing the table is closed.
+  
+Index
+Indexes are special lookup tables that the database search engine can use to speed up data retrieval.
+An index is a pointer to data in a table.
+An index helps to speed up SELECT queries and WHERE clauses, but it slows down data with the UPDATE and the INSERT statements.
+Indexes can be created or dropped with no effect on the data.
+
+Creating Index:
+CREATE INDEX statement allows us to name the index, to specify the table and which column or columns to index, and to indicate whether the index is in an ascending or descending order.
+Syntax:
+    CREATE INDEX index_name ON table_name;
+Single Column Indexes:
+    CREATE INDEX index_name
+    ON table_name(column_name);
+Unique Indexes- good for performance as well as data integrity.
+Syntax:
+    CREATE UNIQUE INDEX index_name
+    ON table_name(column_name);
+Composite Indexes (Syntax):
+    CREATE INDEX index_name
+    ON table_name(col1,col2);
+Dropping Index:
+    DROP INDEX index_name;
+Indexes should be avoided when:
+1. Indexes should not be used on small tables.
+2. Tables that have frequent, large batches update or insert operations.
+3. Indexes should not be used on columns that contain a high number of NULL values.
+4. Columns that are frequently manipulated should not be indexed.
+
+

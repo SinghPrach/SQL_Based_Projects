@@ -425,3 +425,42 @@ Indexes should be avoided when:
 4. Columns that are frequently manipulated should not be indexed.
 
 
+Stored Procedure
+They are created to perform one or more DML operations on database.
+It is nothing but a group of SQL statements that accepts some input in the form of parameters and performs some task and may or may not return a value.
+Syntax:
+    CREATE OR REPLACE PROCEDURE procedure_name(parameters)
+    IS
+    Variables
+    BEGIN
+    // Statements;
+    END;
+    
+    EXEC procedure_name;
+Three different types of parameters:-
+1. IN: This is the default parameter of the procedure. It always recieves the value from the calling program.
+2. OUT: This parameter always sends the values to the calling program.
+3. IN OUT: This parameter performs both the operations. It recieves values from as well as sends the values to the calling program.
+
+Benefits of using a stored procedure in SQL:-
+1. Reusable: Multiple users and applications can easily use and reuse stored procedures by merely calling it.
+2. Easy to modify: Alter Table
+3. Security: Restricts the users from direct access to the table.
+4. Low Network Traffic: The server only passes the procedure name instead of the whole query, reducing network traffic.
+5. Increases performance: Upon the first use, a plan for the stored procedure is created and stored in the buffer pool for quick execution for the next time.
+
+
+Analytical Functions in SQL
+- Analytic functions compute an aggregate value based on a group of rows.
+- They differ from aggregate functions in that they return multiple rows from each group. The group of rows is called a window and is defined by the analytic clause.
+- Analytic functions are the last set of operations performed in a query, except for the final ORDER BY clause. All joins and all WHERE, HAVING, and GROUP BY clauses are completed before the analytic functions are processed.
+- They take 0 to 3 arguments. The arguments can be any numeric data type or any non-numeric data type that can be implicitly converted to a numeric data type.
+SQL Server supports the following analytic functions:-
+CUME_DIST
+FIRST_VALUE
+LAG
+LAST_VALUE
+LEAD
+PERCENT_RANK
+PERCENTILE_CONT
+PERCENTILE_DISC

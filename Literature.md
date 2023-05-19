@@ -42,6 +42,16 @@ By data integrity, it ensures that data-in-use, data-in-transit and data-at-rest
 Types of Data
 Nominal, Ordinal, Discrete, and Continuous
 
+Common Database data types
+- Integer,
+- Character,
+- String,
+- Floating Point Number,
+- Array,
+- Varchar,
+- Boolean,
+- Date, Time, and Timestamp
+
 Constraints
 Used to limit the type of data that goes into a table.
 Ensures data' accuracy and reliability in the table.
@@ -426,6 +436,7 @@ Indexes should be avoided when:
 
 
 Stored Procedure
+A stored procedure is a prepared SQL code that we can save, so that the code can be reused over and over again. If we have an SQL query that we write over and over again, save it as a stored procedure and then just call it to execute it.
 They are created to perform one or more DML operations on database.
 It is nothing but a group of SQL statements that accepts some input in the form of parameters and performs some task and may or may not return a value.
 Syntax:
@@ -514,4 +525,46 @@ Kinds of errors:-
 
 Query Optimization
 - It is a process of defining the most efficient and optimal way and techniques that can be used to improve query performance based on rational use of system resources and performance metrics.
-- The purpose of query tuning is to find a way to decrease the response time of the query, prevent the excessive consumption of resources, 
+- The purpose of query tuning is to find a way to decrease the response time of the query, prevent the excessive consumption of resources, and identify poor query performance.
+** 12 Query Optimization Techniques for better performance
+- Add missing indexes
+- Check for unused indexes
+- Avoid using multiple OR in the FILTER predicate
+- Use wildcards at the end of a phrase only
+- Avoid too many JOINs
+- Avoid using SELECT DISTINCT
+- Use SELECT fields instead of SELECT *
+- Use TOP to sample query results
+- Run the query during off-peak hours
+- Minimize the usage of any query hint
+- Minimize large write operations
+- Create JOINs with INNER JOIN
+
+
+
+Windows Functions in SQL
+Window functions are those that perform a calculation across a set of table rows that are somehow related to the current row.
+They apply aggregate and ranking functions over a particular window (set of rows). OVER clause is used with window functions to define that window. OVER clause does two things : 
+-Partitions rows into form set of rows. (PARTITION BY clause is used) 
+-Orders rows within those partitions into a particular order. (ORDER BY clause is used) 
+Syntax:
+SELECT coulmn_name1, 
+ window_function(cloumn_name2)
+ OVER([PARTITION BY column_name1] [ORDER BY column_name3]) AS new_column
+FROM table_name;
+Where
+window_function= any aggregate or ranking function    
+column_name1= column to be selected
+coulmn_name2= column on which window function is to be applied
+column_name3= column on whose basis partition of rows is to be done
+new_column= Name of new column
+table_name= Name of table
+Aggregate Window Function : 
+Various aggregate functions such as SUM(), COUNT(), AVERAGE(), MAX(), MIN() applied over a particular window (set of rows) are called aggregate window functions. 
+Ranking Window Functions : 
+Ranking functions are, RANK(), DENSE_RANK(), ROW_NUMBER().
+
+
+Backup & Restoration of DB
+- A beackup is a copy of data from our database that can be used to construct that data.
+- Backups can be divided into- physical backups and logical backups.
